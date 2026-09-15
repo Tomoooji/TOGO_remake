@@ -1,0 +1,3 @@
+[submodule "lib/ESP32Encoder"]
+	path = lib/ESP32Encoder
+	url = https://github.com/madhephaestus/ESP32Encoder
