@@ -5,4 +5,10 @@
 #include "UltraSonic.h"
 #include "PID.h"
 
-class LinearActuator{};
+class LinearActuator{
+  public:
+    LinearActuator(PCAMotor& dcMotor, HCSR04& ultrasonic, PID& pid);
+    void begin(uint8_t chanel, uint8_t trigPin);
+    void setTargetDistance(float targetDistance);
+    void update();
+};

@@ -5,4 +5,10 @@
 #include "ESP32Encoder.h"
 #include "PID.h"
 
-class RotaryActuator{};
+class RotaryActuator{
+  public:
+    RotaryActuator(PCAMotor& dcMotor, ESP32Encoder& encoder, PID& pid);
+    void begin(uint8_t chanel, uint8_t enPin);
+    void setTargetAngle(float targetAngle);
+    void update();
+};
