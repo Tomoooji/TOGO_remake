@@ -2,7 +2,7 @@
 
 PCAServo::PCAServo(PCA9685& pwm) : pwm(pwm) {}
 
-void PCAServo::begin(const uint8_t* chanel){
+void PCAServo::attach(const uint8_t* chanel){
   this->chanel = chanel;
   pwm.setPWM(*chanel,0,0);
 }

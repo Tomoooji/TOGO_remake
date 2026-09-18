@@ -9,7 +9,7 @@ class PCAServo{
     int16_t angle;
   public:
     PCAServo(PCA9685& pwm);
-    void begin(const uint8_t* chanel);
+    void attach(const uint8_t* chanel);
     int setAngle(int16_t angle);
     void write(int16_t angle);
     void write();

@@ -41,14 +41,14 @@ void setup(){
   pwmPCA9685.begin();
   pwmPCA9685.setPWMFreq(50);
   
-  BaseRotateUnit.begin(Chanels::dcBaseRotate,PINs::enBaseRotate);
-  BaseExpandUnit.begin(Chanels::dcBaseExpand,PINs::usBaseExpand);
-  BaseLiftUnit.begin(Chanels::dcBaseLift,PINs::usBaseLift);
+  BaseRotateUnit.begin(Chanels::dc_base_rotate,PINs::en_base_rotate);
+  BaseExpandUnit.begin(Chanels::dc_base_expand,PINs::us_base_expand);
+  BaseLiftUnit.begin(Chanels::dc_base_lift,PINs::us_base_lift);
   
-  Hand::attach( PINs::svHandCatchs, PINs::stHandRotate, PINs::stHandExpand);
+  HandUnit.attach(Chanels::sv_hand_catchs, PINs::st_hand_rotate, PINs::st_hand_expand);
   
-  SortSlideUnit.begin(Chanels::dcSortSlide,PINs::usSortSlide);
-  SortGate::attach(PINs::svSortGates);
+  SortSlideUnit.begin(Chanels::dc_sort_slide,PINs::us_sort_slide);
+  SortGateUnit.attach(Chanels::sv_sort_gates);
 }
 
 void loop(){
