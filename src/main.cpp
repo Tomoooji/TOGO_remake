@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include <Wire.h>
 #include "PCA9685.h"
 PCA9685 pwmPCA9685(0x40);
 
@@ -39,7 +39,8 @@ SortGate SortGateUnit;
 
 void setup(){
   pwmPCA9685.begin();
-  pwmPCA9685.setPWMFreq(50);
+  pwmPCA9685.setPWMFreq(1000);
+  Wire.setClock(400000);
   
   BaseRotateUnit.begin(Chanels::dc_base_rotate,PINs::en_base_rotate);
   BaseExpandUnit.begin(Chanels::dc_base_expand,PINs::us_base_expand);
