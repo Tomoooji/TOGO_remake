@@ -16,7 +16,7 @@ private:
 
 public:
   LinearActuator(PCAMotor &dcMotor, HCSR04 &ultrasonic, PID &pid,
-                 const float sensor_position_offset = 0.0f,
+                 const float sensor_position_offset,
                  const float min_distance_error = 0.5f);
   void begin();
   bool update();

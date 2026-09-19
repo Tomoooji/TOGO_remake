@@ -9,8 +9,7 @@ private:
   float integral;
   float last_error;
   unsigned long last_time;
-  const float integral_limit =
-      1000.0; // Limit for integral term to prevent windup
+  const float integral_limit;
 
 public:
   PID(const float *gain);

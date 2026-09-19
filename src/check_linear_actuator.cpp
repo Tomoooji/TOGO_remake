@@ -9,13 +9,14 @@ BaseExpand BaseExpandComponent;
 LinearActuator BaseExpandUnit(
   BaseExpandComponent.dcMotor,
   BaseExpandComponent.ultrasonic,
-  BaseExpandComponent.pid
+  BaseExpandComponent.pid,
+  CONFIGs::sensor_offset_base_expand
 );
 
-int distance = 0;
-int direction = 1; // 1 for increasing, -1 for decreasing
-unsigned long timestamp = 0;
 int makeDistanceStep(){
+  static int distance = 0;
+  static int direction = 1; // 1 for increasing, -1 for decreasing
+  static unsigned long timestamp = millis();
   if(millis() - timestamp > 1000){
     timestamp = millis();
     distance += 5 * direction;

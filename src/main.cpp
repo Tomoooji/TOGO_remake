@@ -7,27 +7,39 @@ PCA9685 pwmPCA9685(0x40);
 #include "RotaryActuator.h"
 
 BaseRotate BaseRotateComponent;
-RotaryActuator BaseRotateUnit(BaseRotateComponent.dcMotor,
-                              BaseRotateComponent.encoder,
-                              BaseRotateComponent.pid,
-                              BaseRotateComponent.enPin);
+RotaryActuator BaseRotateUnit(
+  BaseRotateComponent.dcMotor,
+  BaseRotateComponent.encoder,
+  BaseRotateComponent.pid,
+  BaseRotateComponent.enPin,
+  CONFIGs::pulse2ang_base_rotate
+);
 
 BaseExpand BaseExpandComponent;
-LinearActuator BaseExpandUnit(BaseExpandComponent.dcMotor,
-                              BaseExpandComponent.ultrasonic,
-                              BaseExpandComponent.pid);
+LinearActuator BaseExpandUnit(
+  BaseExpandComponent.dcMotor,
+  BaseExpandComponent.ultrasonic,
+  BaseExpandComponent.pid,
+  CONFIGs::sensor_offset_base_expand
+);
 
 BaseLift BaseLiftComponent;
-LinearActuator BaseLiftUnit(BaseLiftComponent.dcMotor,
-                            BaseLiftComponent.ultrasonic,
-                            BaseLiftComponent.pid);
+LinearActuator BaseLiftUnit(
+  BaseLiftComponent.dcMotor,
+  BaseLiftComponent.ultrasonic,
+  BaseLiftComponent.pid,
+  CONFIGs::sensor_offset_base_lift
+);
 
 Hand HandUnit;
 
 SortSlide SortSlideComponent;
-LinearActuator SortSlideUnit(SortSlideComponent.dcMotor,
-                             SortSlideComponent.ultrasonic,
-                             SortSlideComponent.pid);
+LinearActuator SortSlideUnit(
+  SortSlideComponent.dcMotor,
+  SortSlideComponent.ultrasonic,
+  SortSlideComponent.pid,
+  CONFIGs::sensor_offset_sort_slide
+);
 
 SortGate SortGateUnit;
 

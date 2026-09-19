@@ -13,13 +13,13 @@ RotaryActuator BaseRotateUnit(
   BaseRotateComponent.encoder, 
   BaseRotateComponent.pid,
   BaseRotateComponent.enPin,
-  GAINs::pulse2ang_base_rotate
+  CONFIGs::pulse2ang_base_rotate
 );
 
-int angle = 0;
-int direction = 1; // 1 for increasing, -1 for decreasing
-unsigned long timestamp = 0;
 int makeAngleStep(){
+  static int angle = 0;
+  static int direction = 1; // 1 for increasing, -1 for decreasing
+  static unsigned long timestamp = millis();
   if(millis() - timestamp > 1000){
     timestamp = millis();
     angle += 10 * direction;
