@@ -4,6 +4,7 @@
 #include "ESP32Encoder.h"
 #include "PCAMotor.h"
 #include "PID.h"
+#include "UtilFunctions.h"
 
 class RotaryActuator {
 private:

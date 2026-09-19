@@ -2,11 +2,11 @@
 #include <PinConfig.h>
 #include "UltraSonic.h"
 
-HCSR04 usSensor;
+HCSR04 usSensor(PINs::us_base_expand, 10, 200, 1000);
 
 void setup() {
   Serial.begin(115200);
-  usSensor.begin(PINs::us_base_expand);
+  usSensor.begin();
   while(!Serial);
   Serial.println("Ultrasonic Sensor Test");
 }
