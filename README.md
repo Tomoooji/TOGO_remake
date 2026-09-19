@@ -8,13 +8,11 @@ TOGO_remake/
 ├─ include/                        # ヘッダーファイルフォルダ
 │  ├─ Components.h
 │  ├─ GainConfig.h
-│  ├─ LinearActuator.cpp
-│  ├─ LinearActuator.h
 │  ├─ PinConfig.h
-│  ├─ README
-│  ├─ RotaryActuator.cpp
-│  └─ RotaryActuator.h
+│  └─ README
 ├─ lib/                             # ライブラリフォルダ(ほぼ自作)
+│  ├─ Ultils/                       # 汎用関数ライブラリ
+│  │  └─ UtilFunctions.h
 │  ├─ ESP32Stepper/                 # ESP32用ステッピングモータ制御ライブラリ
 │  │  ├─ ESP32Stepper.cpp
 │  │  └─ ESP32Stepper.h
@@ -31,14 +29,23 @@ TOGO_remake/
 │  ├─ PCAServo/                     # PCA9685用サーボモータ制御ライブラリ
 │  │  ├─ PCAServo.cpp
 │  │  └─ PCAServo.h
+│  ├─ UltraSonic_AsyncTask/         # 超音波センサ用ライブラリ
+│  │  ├─ UltraSonic.cpp
+│  │  └─ UltraSonic.h
+│  ├─ UltraSonic_ISRState/          # 超音波センサ用ライブラリ(ボツ)
+│  │  ├─ UltraSonic.cpp
+│  │  └─ UltraSonic.h
 │  ├─ PID/                          # PID制御用ライブラリ
 │  │  ├─ PID.cpp
 │  │  └─ PID.h
-│  ├─ UltraSonic/                   # 超音波センサ用ライブラリ
-│  │  ├─ UltraSonic.cpp
-│  │  └─ UltraSonic.h
+│  ├─ LinearActuator/               # 直動機構(DCモーター+超音波センサ)用ライブラリ
+│  │  ├─ LinearActuator.cpp
+│  │  └─ LinearActuator.h
+│  ├─ RotaryActuator/               # 回転機構(DCモーター+エンコーダ)用ライブラリ
+│  │  ├─ RotaryActuator.cpp
+│  │  └─ RotaryActuator.h
 │  └─ README
-├─ src/                             # メインのコード(動作確認用含む)
+├─ src/                             # メインのコードフォルダ(動作確認用含む)
 │  ├─ check_linear_actuator.cpp
 │  ├─ check_rotary_actuator.cpp
 │  ├─ check_ultrasonic.cpp

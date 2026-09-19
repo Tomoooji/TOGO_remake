@@ -12,7 +12,8 @@ RotaryActuator BaseRotateUnit(
   BaseRotateComponent.dcMotor, 
   BaseRotateComponent.encoder, 
   BaseRotateComponent.pid,
-  BaseRotateComponent.enPin
+  BaseRotateComponent.enPin,
+  GAINs::pulse2ang_base_rotate
 );
 
 int angle = 0;
@@ -37,7 +38,8 @@ void setup() {
   Serial.begin(115200);
   
   pwmPCA9685.begin();
-  pwmPCA9685.setPWMFreq(1000);
+  //pwmPCA9685.setPWMFreq(1000);
+  pwmPCA9685.setPWMFreq(50);// サーボも動かすから50Hzにしないといけない
   Wire.setClock(400000);
 
   BaseRotateUnit.begin();

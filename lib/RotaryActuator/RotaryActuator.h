@@ -12,12 +12,13 @@ private:
   ESP32Encoder &encoder;
   PID &pid;
   float targetAngle;
-  const float encoder_gear_ratio = 1.0;
+  const float encoder_gear_ratio;
   const uint8_t (&enPin)[2];
+  float angle_cash;
 
 public:
   RotaryActuator(PCAMotor &motor, ESP32Encoder &encoder, PID &pid,
-                 const uint8_t (&enPin)[2]);
+                 const uint8_t (&enPin)[2], const float encoder_gear_ratio);
   void begin();
   void update();
   void setTargetAngle(float targetAngle) {

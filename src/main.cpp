@@ -33,7 +33,8 @@ SortGate SortGateUnit;
 
 void setup() {
   pwmPCA9685.begin();
-  pwmPCA9685.setPWMFreq(1000);
+  //pwmPCA9685.setPWMFreq(1000);
+  pwmPCA9685.setPWMFreq(50);// サーボも動かすから50Hzにしないといけない
   Wire.setClock(400000);
 
   BaseRotateUnit.begin();
