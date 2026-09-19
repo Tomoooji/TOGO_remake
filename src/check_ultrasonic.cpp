@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  usSensor.update();
+  //usSensor.update();
   Serial.print("Distance: ");
   Serial.println(usSensor.getDistance());
   delay(500);

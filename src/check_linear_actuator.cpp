@@ -15,10 +15,10 @@ LinearActuator BaseExpandUnit(
 
 int distance = 0;
 int direction = 1; // 1 for increasing, -1 for decreasing
-unsigned long time = 0;
+unsigned long timestamp = 0;
 int makeDistanceStep(){
-  if(millis() - time > 1000){
-    time = millis();
+  if(millis() - timestamp > 1000){
+    timestamp = millis();
     distance += 5 * direction;
     if(distance > 20) {
       direction = -1;

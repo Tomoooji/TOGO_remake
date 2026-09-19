@@ -18,14 +18,14 @@ extern PCA9685 pwmPCA9685;
 
 // くにくのさくではある(ほんとはムーブコンストラクタと右辺値参照を使って実体を集約？したい)
 struct BaseRotate{
-  BaseRotate():dcMotor(pwmPCA9685), encoder(), pid(GAINs::pid_base_rotate){}
+  BaseRotate():dcMotor(pwmPCA9685), encoder(), pid(GAINs::pid_base_rotate.all){}
   PCAMotor dcMotor;
   ESP32Encoder encoder;
   PID pid;
 };
 
 struct BaseExpand{
-  BaseExpand():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_expand){}
+  BaseExpand():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_expand.all){}
   PCAMotor dcMotor;
   HCSR04 ultrasonic;
   PID pid;
@@ -33,7 +33,7 @@ struct BaseExpand{
 };
 
 struct BaseLift{
-  BaseLift():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_lift){}
+  BaseLift():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_lift.all){}
   PCAMotor dcMotor;
   HCSR04 ultrasonic;
   PID pid;
@@ -52,7 +52,7 @@ struct Hand{
 };
 
 struct SortSlide{
-  SortSlide():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_sort_slide){}
+  SortSlide():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_sort_slide.all){}
   PCAMotor dcMotor;
   HCSR04 ultrasonic;
   PID pid;

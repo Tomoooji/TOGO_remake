@@ -10,8 +10,7 @@ private:
   const int16_t SPEED_MAX;
 
 public:
-  PCAMotor(PCA9685 &pwm, const int speed_max = 255)
-      : pwm(pwm), SPEED_MAX(speed_max) {};
+  PCAMotor(PCA9685 &pwm, const int speed_max = 255);
   void begin(const uint8_t *chanels);
   int setSpeed(int16_t speed);
   void write(int16_t speed);

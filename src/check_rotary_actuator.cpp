@@ -16,10 +16,10 @@ RotaryActuator BaseRotateUnit(
 
 int angle = 0;
 int direction = 1; // 1 for increasing, -1 for decreasing
-unsigned long time = 0;
+unsigned long timestamp = 0;
 int makeAngleStep(){
-  if(millis() - time > 1000){
-    time = millis();
+  if(millis() - timestamp > 1000){
+    timestamp = millis();
     angle += 10 * direction;
     if(angle > 180){
       direction = -1;

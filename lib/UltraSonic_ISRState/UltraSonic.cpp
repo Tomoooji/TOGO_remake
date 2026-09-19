@@ -1,3 +1,4 @@
+#if 0
 #include "UltraSonic.h"
 
 HCSR04::HCSR04(const int send_pulse_length, const int send_span_min, const int read_timeout)
@@ -64,3 +65,4 @@ void IRAM_ATTR HCSR04::readPulseISR(void *arg) {
     }
   }
 }
+#endif

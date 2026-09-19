@@ -28,3 +28,14 @@ void Stepper::step(int16_t steps) {
   digitalWrite(pins[2], (steps + 2) & 2);
   digitalWrite(pins[3], (steps + 0) & 2);
 }
+
+bool Stepper::moveStep() {
+  if (total_step < target_step) {
+    total_step++;
+    step(total_step);
+  } else if (total_step > target_step) {
+    total_step--;
+    step(total_step);
+  }
+  return total_step == target_step;
+}
