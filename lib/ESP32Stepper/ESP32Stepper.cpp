@@ -11,40 +11,20 @@ void Stepper::attach(const uint8_t pins[4]) {
   pinMode(pins[3], OUTPUT);
 }
 
-void Stepper::write(int16_t angle) {
-  if (pins == nullptr)
-    return; // Check if pins are attached
-  int16_t steps =
-      angle * angle2step; // Convert angle to steps based on gear ratio
+void Stepper::moveTo(int16_t angle, int time_ms) {
+  int16_t steps = angle * angle2step;
+  int step_time = time_ms * 1000 / abs(steps);
   for (int16_t i = 0; i < abs(steps); i++) {
     total_step += (steps > 0) ? 1 : -1;
-    total_step %= 4; // Ensure step is within the range of 0-3
-    // Set the pins based on the current step
-    switch (total_step) {
-    case 0:
-      digitalWrite(pins[0], HIGH);
-      digitalWrite(pins[1], LOW);
-      digitalWrite(pins[2], LOW);
-      digitalWrite(pins[3], LOW);
-      break;
-    case 1:
-      digitalWrite(pins[0], LOW);
-      digitalWrite(pins[1], HIGH);
-      digitalWrite(pins[2], LOW);
-      digitalWrite(pins[3], LOW);
-      break;
-    case 2:
-      digitalWrite(pins[0], LOW);
-      digitalWrite(pins[1], LOW);
-      digitalWrite(pins[2], HIGH);
-      digitalWrite(pins[3], LOW);
-      break;
-    case 3:
-      digitalWrite(pins[0], LOW);
-      digitalWrite(pins[1], LOW);
-      digitalWrite(pins[2], LOW);
-      digitalWrite(pins[3], HIGH);
-      break;
-    }
+    step(total_step);
+    delayMicroseconds(step_time);
   }
+}
+
+void Stepper::step(int16_t steps) {
+  if (pins == nullptr) return;
+  digitalWrite(pins[0], (steps + 3) & 2);
+  digitalWrite(pins[1], (steps + 1) & 2);
+  digitalWrite(pins[2], (steps + 2) & 2);
+  digitalWrite(pins[3], (steps + 0) & 2);
 }
