@@ -1,7 +1,13 @@
 #include "PID.h"
 
 PID::PID(const float *gain)
-    : gain{gain}, target(0), integral(0), last_error(0) {}
+: gain{gain}, target(0), integral(0), last_error(0) {}
+
+void PID::reset() {
+  integral = 0;
+  last_error = 0;
+  last_time = millis();
+}
 
 float PID::update(float input, float dt) {
   if (dt <= 0) {

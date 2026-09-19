@@ -3,14 +3,14 @@
 
 class Stepper {
 private:
-  const uint8_t *pins;
+  const uint8_t (&pins)[4];
   const int angle2step;
   int total_step;
   int target_step;
 
 public:
-  Stepper(const int angle2step);
-  void attach(const uint8_t pins[4]);
+  Stepper(const uint8_t (&pins)[4], const int angle2step);
+  void begin();
   void step(int16_t steps);
 
   // こっちはブロッキング

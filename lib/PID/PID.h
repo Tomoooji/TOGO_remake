@@ -14,15 +14,11 @@ private:
 
 public:
   PID(const float *gain);
-  void setGain(const float *gain) { this->gain = gain; }
+  void reset();
+  float update(float input, float dt = 0);
   void setTarget(float target) {
     this->target = target;
     last_time = millis();
   }
-  void reset() {
-    integral = 0;
-    last_error = 0;
-    last_time = millis();
-  }
-  float update(float input, float dt = 0);
+  void setGain(const float *gain) { this->gain = gain; }
 };

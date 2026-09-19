@@ -11,7 +11,8 @@ BaseRotate BaseRotateComponent;
 RotaryActuator BaseRotateUnit(
   BaseRotateComponent.dcMotor, 
   BaseRotateComponent.encoder, 
-  BaseRotateComponent.pid
+  BaseRotateComponent.pid,
+  BaseRotateComponent.enPin
 );
 
 int angle = 0;
@@ -39,7 +40,7 @@ void setup() {
   pwmPCA9685.setPWMFreq(1000);
   Wire.setClock(400000);
 
-  BaseRotateUnit.begin(Chanels::dc_base_rotate,PINs::en_base_rotate);
+  BaseRotateUnit.begin();
   BaseRotateUnit.setTargetAngle(0); // Set initial target angle to 0 degrees
 
   while(!Serial);

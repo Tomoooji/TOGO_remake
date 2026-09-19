@@ -7,16 +7,17 @@ LinearActuator::LinearActuator(PCAMotor &dcMotor, HCSR04 &ultrasonic, PID &pid,
       sensor_position_offset(sensor_position_offset),
       min_distance_error(min_distance_error) {}
 
-void LinearActuator::begin(const uint8_t *chanel, const uint8_t *usPin) {
-  motor.begin(chanel);
-  ultrasonic.begin(usPin);
+void LinearActuator::begin() {
+  motor.begin();
+  ultrasonic.begin();
   pid.reset();
 }
 
 bool LinearActuator::update() {
-  //ultrasonic.update();
+  // ultrasonic.update();
   float currentDistance = getCurrentDistance();
   float controlSignal = pid.update(currentDistance);
   motor.write(controlSignal);
   return abs(currentDistance - targetDistance) < this->min_distance_error;
 }
+

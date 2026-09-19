@@ -55,6 +55,7 @@ inline constexpr union HAND_CATCH_ANGLE {
 // gear ratios
 inline constexpr float pulse2ang_base_rotate = 1024;
 inline constexpr float gear_hand_rotate = 1.0;
+inline constexpr float gear_hand_expand = 1.0;
 // speed limits
 inline constexpr float speed_max_base_rotate = 100.0;
 inline constexpr float speed_max_base_expand = 100.0;
