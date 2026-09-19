@@ -9,10 +9,10 @@ private:
   float integral;
   float last_error;
   unsigned long last_time;
-  const float integral_limit;
+  const float &integral_limit;
 
 public:
-  PID(const float *gain);
+  PID(const float *gain, const float &integral_limit);
   void reset();
   float update(float input, float dt = 0);
   void setTarget(float target) {

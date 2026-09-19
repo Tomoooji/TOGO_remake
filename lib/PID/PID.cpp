@@ -1,7 +1,7 @@
 #include "PID.h"
 
-PID::PID(const float *gain)
-: gain{gain}, target(0), integral(0), last_error(0) {}
+PID::PID(const float *gain, const float &integral_limit)
+: gain{gain}, target(0), integral(0), last_error(0), integral_limit(integral_limit) {}
 
 void PID::reset() {
   integral = 0;

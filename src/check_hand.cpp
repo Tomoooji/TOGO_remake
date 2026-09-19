@@ -1,5 +1,8 @@
-#include "Components.h"
+#include <Wire.h>
+#include "PCA9685.h"
+PCA9685 pwmPCA9685(0x40);
 
+#include "Components.h"
 Hand HandUnit;
 
 int makeAngleZigzag(){
@@ -20,7 +23,15 @@ int makeExpandStep(){
 }
 
 void setup() {
+  Serial.begin(115200);
+  
+  pwmPCA9685.begin();
+  pwmPCA9685.setPWMFreq(50);
+  Wire.setClock(400000);
   HandUnit.begin();
+
+  while(!Serial);
+  Serial.println("Hand Test");
 }
 
 void loop() {
@@ -34,5 +45,13 @@ void loop() {
   int state = makeExpandStep();
   HandUnit.stExpand.setTargetAngle(GAINs::pos_hand_expand.all[state]); // Toggle between Catch and Shoot positions
   HandUnit.stExpand.moveStep();
+
+  Serial.print("Current Rotate Angle: ");
+  Serial.println(HandUnit.stRotate.getCurrentAngle());
+  Serial.print("Target Expand Angle: ");
+  Serial.println(HandUnit.stExpand.getTargetAngle());
+  Serial.print("Current Expand Angle: ");
+  Serial.println(HandUnit.stExpand.getCurrentAngle());
+  
   delay(1); // Wait for a second before repeating
 }
