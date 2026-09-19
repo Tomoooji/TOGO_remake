@@ -18,7 +18,8 @@ public:
   LinearActuator(PCAMotor &dcMotor, HCSR04 &ultrasonic, PID &pid,
                  const float sensor_position_offset = 0.0f,
                  const float min_distance_error = 0.5f);
-  void begin(const uint8_t *chanel, const uint8_t *usPin);
+  void begin();
+  bool update();
   void setTargetDistance(float targetDistance) {
     this->targetDistance = targetDistance;
     pid.setTarget(targetDistance);
@@ -27,5 +28,4 @@ public:
   float getCurrentDistance() const {
     return ultrasonic.getDistance() + sensor_position_offset;
   }
-  bool update();
 };

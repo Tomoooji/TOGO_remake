@@ -3,65 +3,77 @@
 #include "PCA9685.h"
 extern PCA9685 pwmPCA9685;
 
-#include <ESP32Encoder.h>
-#include "UltraSonic.h"
 #include "ESP32Stepper.h"
 #include "PCAMotor.h"
 #include "PCAServo.h"
 #include "PID.h"
+#include "UltraSonic.h"
+#include <ESP32Encoder.h>
 
-#include "RotaryActuator.h"
-#include "LinearActuator.h"
-
-#include "PinConfig.h"
 #include "GainConfig.h"
+#include "PinConfig.h"
 
 // くにくのさくではある(ほんとはムーブコンストラクタと右辺値参照を使って実体を集約？したい)
-struct BaseRotate{
-  BaseRotate():dcMotor(pwmPCA9685), encoder(), pid(GAINs::pid_base_rotate.all){}
+struct BaseRotate {
+  BaseRotate() : dcMotor(pwmPCA9685, Chanels::dc_base_rotate),
+                 encoder(),
+                 pid(GAINs::pid_base_rotate.all) {}
   PCAMotor dcMotor;
   ESP32Encoder encoder;
+  const uint8_t (&enPin)[2] = PINs::en_base_rotate;
   PID pid;
 };
 
-struct BaseExpand{
-  BaseExpand():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_expand.all){}
-  PCAMotor dcMotor;
-  HCSR04 ultrasonic;
-  PID pid;
-  
-};
-
-struct BaseLift{
-  BaseLift():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_base_lift.all){}
+struct BaseExpand {
+  BaseExpand() : dcMotor(pwmPCA9685, Chanels::dc_base_expand),
+                 ultrasonic(PINs::us_base_expand),
+                 pid(GAINs::pid_base_expand.all) {}
   PCAMotor dcMotor;
   HCSR04 ultrasonic;
   PID pid;
 };
 
-struct Hand{
-  PCAServo svCatch1, svCatch2, svCatch3;
+struct BaseLift {
+  BaseLift() : dcMotor(pwmPCA9685, Chanels::dc_base_lift),
+               ultrasonic(PINs::us_base_lift),
+               pid(GAINs::pid_base_lift.all) {}
+  PCAMotor dcMotor;
+  HCSR04 ultrasonic;
+  PID pid;
+};
+
+struct Hand {
+  PCAServo svLeft, svMiddle, svRight;
   Stepper stRotate, stExpand;
-  void attach(const uint8_t svCatchPin[], const uint8_t stRotatePin[], const uint8_t stExpandPin[]){
-    svCatch1.attach(&svCatchPin[0]);
-    svCatch2.attach(&svCatchPin[1]);
-    svCatch3.attach(&svCatchPin[2]);
-    stRotate.attach(stRotatePin);
-    stExpand.attach(stExpandPin);
+  Hand() : svLeft(pwmPCA9685, Chanels::sv_hand_catchs[0]),
+           svMiddle(pwmPCA9685, Chanels::sv_hand_catchs[1]),
+           svRight(pwmPCA9685, Chanels::sv_hand_catchs[2]),
+           stRotate(PINs::st_hand_rotate, GAINs::gear_hand_rotate),
+           stExpand(PINs::st_hand_expand, GAINs::gear_hand_expand) {}
+  void begin() {
+    svLeft.begin();
+    svMiddle.begin();
+    svRight.begin();
+    stRotate.begin();
+    stExpand.begin();
   }
 };
 
-struct SortSlide{
-  SortSlide():dcMotor(pwmPCA9685), ultrasonic(), pid(GAINs::pid_sort_slide.all){}
+struct SortSlide {
   PCAMotor dcMotor;
   HCSR04 ultrasonic;
   PID pid;
+  SortSlide() : dcMotor(pwmPCA9685, Chanels::dc_sort_slide),
+                ultrasonic(PINs::us_sort_slide),
+                pid(GAINs::pid_sort_slide.all) {}
 };
 
-struct SortGate{
+struct SortGate {
   PCAServo svLeft, svRight;
-  void attach(const uint8_t svGatePin[]){
-    svLeft.attach(&svGatePin[0]);
-    svRight.attach(&svGatePin[1]);
+  SortGate() : svLeft(pwmPCA9685, Chanels::sv_sort_gates[0]),
+               svRight(pwmPCA9685, Chanels::sv_sort_gates[1]) {}
+  void begin() {
+    svLeft.begin();
+    svRight.begin();
   }
 };
