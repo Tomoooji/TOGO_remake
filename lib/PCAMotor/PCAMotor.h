@@ -1,5 +1,5 @@
 #pragma once
-#include "PCA9685.h"
+#include <PCA9685.h>
 
 class PCAMotor {
 private:

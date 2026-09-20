@@ -1,5 +1,5 @@
 #pragma once
-#include "UtilFunctions.h"
+#include <UtilFunctions.h>
 #include <Arduino.h>
 
 class Stepper {

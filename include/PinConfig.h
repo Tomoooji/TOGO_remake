@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+
 namespace Chanels {
 inline constexpr uint8_t dc_base_rotate[2] = {0, 1};
 inline constexpr uint8_t dc_base_expand[2] = {2, 3};

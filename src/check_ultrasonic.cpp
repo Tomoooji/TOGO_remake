@@ -1,6 +1,5 @@
-#include <Arduino.h>
-#include <PinConfig.h>
-#include "UltraSonic.h"
+#include <UltraSonic.h>
+#include "PinConfig.h"
 
 HCSR04 usSensor(PINs::us_base_expand, 10, 200, 1000);
 

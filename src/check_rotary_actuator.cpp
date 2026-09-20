@@ -1,7 +1,5 @@
-#include <Arduino.h>
-
 #include <Wire.h>
-#include "PCA9685.h"
+#include <PCA9685.h>
 PCA9685 pwmPCA9685(0x40);
 
 #include <Components.h>

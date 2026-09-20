@@ -1,5 +1,4 @@
 #include "RotaryActuator.h"
-//#include <Utils.h>
 
 RotaryActuator::RotaryActuator(PCAMotor &motor, ESP32Encoder &encoder, PID &pid, const uint8_t (&enPin)[2], const float encoder_gear_ratio)
     : motor(motor), encoder(encoder), pid(pid), enPin(enPin), targetAngle(0), encoder_gear_ratio(encoder_gear_ratio) {}
