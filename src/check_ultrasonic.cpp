@@ -1,7 +1,7 @@
 #include <UltraSonic.h>
 #include "PinConfig.h"
 
-HCSR04 usSensor(PINs::us_base_expand, 10, 200, 1000);
+HCSR04 usSensor(Pins::us_base_expand, 10, 200, 1000);
 
 void setup() {
   Serial.begin(115200);

@@ -36,14 +36,14 @@ void setup() {
 
 void loop() {
   // Example usage of the HandUnit
-  HandUnit.svLeft.write(HandUnit.svLeft.setAngle(GAINs::pos_hand_catch.Open));
-  HandUnit.svMiddle.write(HandUnit.svMiddle.setAngle(GAINs::pos_hand_catch.Close));
-  HandUnit.svRight.write(HandUnit.svRight.setAngle(GAINs::pos_hand_catch.Grab));
+  HandUnit.svLeft.write(HandUnit.svLeft.setAngle(Gains::pos_hand_catch.Open));
+  HandUnit.svMiddle.write(HandUnit.svMiddle.setAngle(Gains::pos_hand_catch.Close));
+  HandUnit.svRight.write(HandUnit.svRight.setAngle(Gains::pos_hand_catch.Grab));
 
   HandUnit.stRotate.moveTo(makeAngleZigzag(), 1); // Move to a new angle every loop iteration (increments by 10 degrees, resets after 180 degrees)
   
   int state = makeExpandStep();
-  HandUnit.stExpand.setTargetAngle(GAINs::pos_hand_expand.all[state]); // Toggle between Catch and Shoot positions
+  HandUnit.stExpand.setTargetAngle(Gains::pos_hand_expand.all[state]); // Toggle between Catch and Shoot positions
   HandUnit.stExpand.moveStep();
 
   Serial.print("Current Rotate Angle: ");

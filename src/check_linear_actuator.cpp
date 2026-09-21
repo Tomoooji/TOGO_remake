@@ -10,7 +10,7 @@ LinearActuator BaseExpandUnit(
   BaseExpandComponent.dcMotor,
   BaseExpandComponent.ultrasonic,
   BaseExpandComponent.pid,
-  CONFIGs::sensor_offset_base_expand
+  Configs::sensor_offset_base_expand
 );
 
 int makeDistanceStep(){

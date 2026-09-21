@@ -11,7 +11,7 @@ RotaryActuator BaseRotateUnit(
   BaseRotateComponent.encoder, 
   BaseRotateComponent.pid,
   BaseRotateComponent.enPin,
-  CONFIGs::pulse2ang_base_rotate
+  Configs::pulse2ang_base_rotate
 );
 
 int makeAngleStep(){

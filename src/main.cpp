@@ -12,7 +12,7 @@ RotaryActuator BaseRotateUnit(
   BaseRotateComponent.encoder,
   BaseRotateComponent.pid,
   BaseRotateComponent.enPin,
-  CONFIGs::pulse2ang_base_rotate
+  Configs::pulse2ang_base_rotate
 );
 
 BaseExpand BaseExpandComponent;
@@ -20,7 +20,7 @@ LinearActuator BaseExpandUnit(
   BaseExpandComponent.dcMotor,
   BaseExpandComponent.ultrasonic,
   BaseExpandComponent.pid,
-  CONFIGs::sensor_offset_base_expand
+  Configs::sensor_offset_base_expand
 );
 
 BaseLift BaseLiftComponent;
@@ -28,7 +28,7 @@ LinearActuator BaseLiftUnit(
   BaseLiftComponent.dcMotor,
   BaseLiftComponent.ultrasonic,
   BaseLiftComponent.pid,
-  CONFIGs::sensor_offset_base_lift
+  Configs::sensor_offset_base_lift
 );
 
 Hand HandUnit;
@@ -38,7 +38,7 @@ LinearActuator SortSlideUnit(
   SortSlideComponent.dcMotor,
   SortSlideComponent.ultrasonic,
   SortSlideComponent.pid,
-  CONFIGs::sensor_offset_sort_slide
+  Configs::sensor_offset_sort_slide
 );
 
 SortGate SortGateUnit;

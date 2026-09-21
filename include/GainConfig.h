@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 
-namespace GAINs {
+namespace Gains {
 // PID gains
 union PID_GAIN {
   struct { float P, I, D; }; float all[3];
@@ -55,9 +55,9 @@ inline constexpr float speed_max_base_rotate = 100.0;
 inline constexpr float speed_max_base_expand = 100.0;
 inline constexpr float speed_max_base_lift = 100.0;
 inline constexpr float speed_max_sort_slide = 100.0;
-} // namespace GAINs
+} // namespace Gains
 
-namespace CONFIGs {
+namespace Configs {
 // sensor offsets
 inline constexpr float sensor_offset_base_expand = 0.0;
 inline constexpr float sensor_offset_base_lift = 0.0;
@@ -72,4 +72,4 @@ inline constexpr float integral_limit_base_expand = 1000.0;
 inline constexpr float integral_limit_base_lift = 1000.0;
 inline constexpr float integral_limit_sort_slide = 1000.0;
 
-} // namespace CONFIGs
+} // namespace Configs
