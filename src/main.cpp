@@ -20,14 +20,14 @@ RotaryActuator BaseRotateUnit{
 
 LinearActuator BaseExpandUnit{
   PCAMotor(pwmPCA9685, Channels::dc_base_expand),
-  HCSR04(Pins::us_base_expand, 10, 200, 1000),
+  HCSR04Async(Pins::us_base_expand, 10, 200, 1000),
   PID(Gains::pid_base_expand, Gains::default_integral_limit),
   Configs::sensor_offset_base_expand
 };
 
 LinearActuator BaseLiftUnit{
   PCAMotor(pwmPCA9685, Channels::dc_base_lift),
-  HCSR04(Pins::us_base_lift, 10, 200, 1000),
+  HCSR04Async(Pins::us_base_lift, 10, 200, 1000),
   PID(Gains::pid_base_lift, Gains::default_integral_limit),
   Configs::sensor_offset_base_lift
 };
@@ -36,7 +36,7 @@ Hand HandUnit;
 
 LinearActuator SortSlideUnit{
   PCAMotor(pwmPCA9685, Channels::dc_sort_slide),
-  HCSR04(Pins::us_sort_slide, 10, 200, 1000),
+  HCSR04Async(Pins::us_sort_slide, 10, 200, 1000),
   PID(Gains::pid_sort_slide, Gains::default_integral_limit),
   Configs::sensor_offset_sort_slide
 };
