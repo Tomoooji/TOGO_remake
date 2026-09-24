@@ -1,4 +1,4 @@
-#include <UltraSonic.h>
+#include <UltraSonicAsync.h>
 #include "PinConfig.h"
 
 HCSR04 usSensor(Pins::us_base_expand, 10, 200, 1000);

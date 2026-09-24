@@ -1,17 +1,17 @@
 #include <Wire.h>
-#include <PCA9685.h>
+#include <PCA9685_tmj.h>
 PCA9685 pwmPCA9685(0x40);
 
-#include "Components.h"
+#include "PinConfig.h"
+#include "GainConfig.h"
 #include "LinearActuator.h"
 
-BaseExpand BaseExpandComponent;
-LinearActuator BaseExpandUnit(
-  BaseExpandComponent.dcMotor,
-  BaseExpandComponent.ultrasonic,
-  BaseExpandComponent.pid,
+LinearActuator BaseExpandUnit{
+  PCAMotor(pwmPCA9685, Pins::base_expand_motor),
+  HCSR04(Pins::us_base_expand, 10, 200, 1000),
+  PID(Gains::pid_base_expand, 100.0),
   Configs::sensor_offset_base_expand
-);
+};
 
 int makeDistanceStep(){
   static int distance = 0;

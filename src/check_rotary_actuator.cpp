@@ -1,18 +1,19 @@
 #include <Wire.h>
-#include <PCA9685.h>
+#include <PCA9685_tmj.h>
 PCA9685 pwmPCA9685(0x40);
 
-#include <Components.h>
+#include "PinConfig.h"
+#include "GainConfig.h"
 #include "RotaryActuator.h"
 
-BaseRotate BaseRotateComponent;
-RotaryActuator BaseRotateUnit(
-  BaseRotateComponent.dcMotor, 
-  BaseRotateComponent.encoder, 
-  BaseRotateComponent.pid,
-  BaseRotateComponent.enPin,
+RotaryActuator BaseRotateUnit{
+  PCAMotor(pwmPCA9685, Pins::base_rotate_motor),
+  ESP32Encoder(),
+  PID(Gains::pid_base_rotate, 100.0),
+  Channels::en_base_rotate,
   Configs::pulse2ang_base_rotate
-);
+};
+
 
 int makeAngleStep(){
   static int angle = 0;

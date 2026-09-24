@@ -1,7 +1,7 @@
 #include "PID.h"
 
-PID::PID(const float *gain, const float &integral_limit)
-: gain{gain}, target(0), integral(0), last_error(0), integral_limit(integral_limit) {}
+PID::PID(const Gain &gain, const float &integral_limit)
+    : gain(gain), integral_limit(integral_limit), target(0), integral(0), last_error(0), last_time(millis()) {}
 
 void PID::reset() {
   integral = 0;
@@ -23,5 +23,5 @@ float PID::update(float input, float dt) {
   float derivative = (error - last_error) / dt;
   last_error = error;
 
-  return gain[P] * error + gain[I] * integral + gain[D] * derivative;
+  return gain.kp * error + gain.ki * integral + gain.kd * derivative;
 }

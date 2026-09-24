@@ -1,15 +1,15 @@
 #pragma once
 #include <Arduino.h>
 
+#include "PID.h"
+
 namespace Gains {
 // PID gains
-union PID_GAIN {
-  struct { float P, I, D; }; float all[3];
-};
-inline constexpr PID_GAIN pid_base_rotate = {0.5, 0.0, 0.0};
-inline constexpr PID_GAIN pid_base_expand = {0.5, 0.0, 0.0};
-inline constexpr PID_GAIN pid_base_lift = {0.5, 0.0, 0.0};
-inline constexpr PID_GAIN pid_sort_slide = {1.5, 0.0, 0.0};
+inline constexpr float default_integral_limit = 1000.0;
+inline constexpr PID::Gain pid_base_rotate = {0.5, 0.0, 0.0};
+inline constexpr PID::Gain pid_base_expand = {0.5, 0.0, 0.0};
+inline constexpr PID::Gain pid_base_lift = {0.5, 0.0, 0.0};
+inline constexpr PID::Gain pid_sort_slide = {1.5, 0.0, 0.0};
 
 // Position configuration
 union BASE_POSITION {
