@@ -7,9 +7,9 @@ PCA9685 pwmPCA9685(0x40);
 #include "LinearActuator.h"
 
 LinearActuator BaseExpandUnit{
-  PCAMotor(pwmPCA9685, Pins::base_expand_motor),
-  HCSR04(Pins::us_base_expand, 10, 200, 1000),
-  PID(Gains::pid_base_expand, 100.0),
+  PCAMotor(pwmPCA9685, Channels::dc_base_expand),
+  HCSR04Async(Pins::us_base_expand, 10, 200, 1000),
+  PID(Gains::pid_base_expand, Gains::default_integral_limit),
   Configs::sensor_offset_base_expand
 };
 
@@ -34,10 +34,9 @@ int makeDistanceStep(){
 void setup() {
   Serial.begin(115200);
   
-  pwmPCA9685.begin();
+  pwmPCA9685.begin(400000);
   //pwmPCA9685.setPWMFreq(1000);
   pwmPCA9685.setPWMFreq(50);// サーボも動かすから50Hzにしないといけない
-  Wire.setClock(400000);
 
   BaseExpandUnit.begin();
   BaseExpandUnit.setTargetDistance(0); // Set initial target distance to 0

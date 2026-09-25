@@ -25,10 +25,10 @@ int makeExpandStep(){
 void setup() {
   Serial.begin(115200);
   
-  pwmPCA9685.begin();
+  pwmPCA9685.begin(400000);
   pwmPCA9685.setPWMFreq(50);
-  Wire.setClock(400000);
-  HandUnit.begin();
+  HandUnit.stExpand.begin();
+  HandUnit.stRotate.begin();
 
   while(!Serial);
   Serial.println("Hand Test");
@@ -36,9 +36,9 @@ void setup() {
 
 void loop() {
   // Example usage of the HandUnit
-  HandUnit.svLeft.write(HandUnit.svLeft.setAngle(Gains::pos_hand_catch.Open));
-  HandUnit.svMiddle.write(HandUnit.svMiddle.setAngle(Gains::pos_hand_catch.Close));
-  HandUnit.svRight.write(HandUnit.svRight.setAngle(Gains::pos_hand_catch.Grab));
+  HandUnit.svLeft.write(Gains::pos_hand_catch.Open);
+  HandUnit.svMiddle.write(Gains::pos_hand_catch.Close);
+  HandUnit.svRight.write(Gains::pos_hand_catch.Grab);
 
   HandUnit.stRotate.moveTo(makeAngleZigzag(), 1); // Move to a new angle every loop iteration (increments by 10 degrees, resets after 180 degrees)
   

@@ -13,7 +13,7 @@ PCA9685 pwmPCA9685(0x40);
 RotaryActuator BaseRotateUnit{
   PCAMotor(pwmPCA9685, Channels::dc_base_rotate),
   ESP32Encoder(),
-  PID(Gains::pid_base_rotate, Gains::default_integral_limit),
+  PID<RadianAbsPi<float>>(Gains::pid_base_rotate, Gains::default_integral_limit),
   Pins::en_base_rotate,
   Configs::pulse2ang_base_rotate
 };
@@ -44,10 +44,9 @@ LinearActuator SortSlideUnit{
 SortGate SortGateUnit;
 
 void setup() {
-  pwmPCA9685.begin();
+  pwmPCA9685.begin(400000);
   //pwmPCA9685.setPWMFreq(1000);
   pwmPCA9685.setPWMFreq(50);// サーボも動かすから50Hzにしないといけない
-  Wire.setClock(400000);
 
   BaseRotateUnit.begin();
   BaseExpandUnit.begin();

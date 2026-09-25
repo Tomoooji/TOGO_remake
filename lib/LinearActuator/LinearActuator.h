@@ -11,16 +11,16 @@ private:
   constexpr static float default_min_distance_error = 0.5f;
   PCAMotor motor;
   HCSR04Async ultrasonic;
-  PID pid;
+  PID<float> pid;
   float targetDistance;
   const float &sensor_position_offset;
   const float &min_distance_error = default_min_distance_error;
 
 public:
-  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID &&pid,
+  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID<float> &&pid,
                  const float &sensor_position_offset,
                  const float &min_distance_error);
-  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID &&pid,
+  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID<float> &&pid,
                  const float &sensor_position_offset);
   void begin();
   bool update();

@@ -2,14 +2,18 @@
 #include <Arduino.h>
 
 #include "PID.h"
+#include <Radian.h>
 
 namespace Gains {
 // PID gains
 inline constexpr float default_integral_limit = 1000.0;
-inline constexpr PID::Gain pid_base_rotate = {0.5, 0.0, 0.0};
-inline constexpr PID::Gain pid_base_expand = {0.5, 0.0, 0.0};
-inline constexpr PID::Gain pid_base_lift = {0.5, 0.0, 0.0};
-inline constexpr PID::Gain pid_sort_slide = {1.5, 0.0, 0.0};
+inline constexpr PID<RadianAbsPi<float>>::Gain pid_base_rotate = {
+  0.5, 0.0, 0.0 };
+//  RadianAbsPi<float>(0.5), RadianAbsPi<float>(0.0), RadianAbsPi<float>(0.0)
+//};////
+inline constexpr PID<float>::Gain pid_base_expand = {0.5, 0.0, 0.0};
+inline constexpr PID<float>::Gain pid_base_lift = {0.5, 0.0, 0.0};
+inline constexpr PID<float>::Gain pid_sort_slide = {1.5, 0.0, 0.0};
 
 // Position configuration
 union BASE_POSITION {
@@ -21,17 +25,11 @@ union BASE_POSITION {
     float Red1, Red2, Red3, Red4;
     float Blue1, Blue2, Blue3, Blue4;
   };
-  float all[15];
+  float all[17];
 };
 inline const BASE_POSITION pos_base_rotate = {
-  0.0,  -90.0, 90.0,  45.0,  90.0,
-  0.0,  45.0,  -45.0, -90.0, 30.0,
-  60.0, 90.0,  120.0, -30.0, -60.0
 };
 inline const BASE_POSITION pos_base_expand = {
-  0.0,  0.0,  180.0, 90.0,   180.0,
-  0.0,  90.0, -90.0, -180.0, 30.0,
-  60.0, 90.0, 120.0, -30.0,  -60.0
 };
 
 inline constexpr union BASE_HEIGHT {
