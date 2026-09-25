@@ -1,18 +1,18 @@
 #include <Wire.h>
-#include <PCA9685.h>
+#include <PCA9685_tmj.h>
 PCA9685 pwmPCA9685(0x40);
 
-#include <Components.h>
+#include "PinConfig.h"
+#include "GainConfig.h"
 #include "RotaryActuator.h"
 
-BaseRotate BaseRotateComponent;
-RotaryActuator BaseRotateUnit(
-  BaseRotateComponent.dcMotor, 
-  BaseRotateComponent.encoder, 
-  BaseRotateComponent.pid,
-  BaseRotateComponent.enPin,
+RotaryActuator BaseRotateUnit{
+  PCAMotor(pwmPCA9685, Channels::dc_base_rotate),
+  ESP32Encoder(),
+  PID<RadianAbsPi<float>>(Gains::pid_base_rotate, Gains::default_integral_limit),
+  Pins::en_base_rotate,
   Configs::pulse2ang_base_rotate
-);
+};
 
 int makeAngleStep(){
   static int angle = 0;
@@ -35,10 +35,9 @@ int makeAngleStep(){
 void setup() {
   Serial.begin(115200);
   
-  pwmPCA9685.begin();
+  pwmPCA9685.begin(400000);
   //pwmPCA9685.setPWMFreq(1000);
   pwmPCA9685.setPWMFreq(50);// サーボも動かすから50Hzにしないといけない
-  Wire.setClock(400000);
 
   BaseRotateUnit.begin();
   BaseRotateUnit.setTargetAngle(0); // Set initial target angle to 0 degrees

@@ -1,23 +1,27 @@
 #pragma once
 #include <Arduino.h>
+#include <utility>
 
 #include <PCAMotor.h>
 #include <PID.h>
-#include <UltraSonic.h>
+#include <UltraSonicAsync.h>
 
 class LinearActuator {
 private:
-  PCAMotor &motor;
-  HCSR04 &ultrasonic;
-  PID &pid;
+  constexpr static float default_min_distance_error = 0.5f;
+  PCAMotor motor;
+  HCSR04Async ultrasonic;
+  PID<float> pid;
   float targetDistance;
-  const float sensor_position_offset;
-  const float min_distance_error;
+  const float &sensor_position_offset;
+  const float &min_distance_error = default_min_distance_error;
 
 public:
-  LinearActuator(PCAMotor &dcMotor, HCSR04 &ultrasonic, PID &pid,
-                 const float sensor_position_offset,
-                 const float min_distance_error = 0.5f);
+  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID<float> &&pid,
+                 const float &sensor_position_offset,
+                 const float &min_distance_error);
+  LinearActuator(PCAMotor &&dcMotor, HCSR04Async &&ultrasonic, PID<float> &&pid,
+                 const float &sensor_position_offset);
   void begin();
   bool update();
   void setTargetDistance(float targetDistance) {

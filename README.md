@@ -11,30 +11,9 @@ TOGO_remake/
 │  ├─ PinConfig.h
 │  └─ README
 ├─ lib/                             # ライブラリフォルダ(ほぼ自作)
-│  ├─ Ultils/                       # 汎用関数ライブラリ
-│  │  └─ UtilFunctions.h
 │  ├─ ESP32Stepper/                 # ESP32用ステッピングモータ制御ライブラリ
 │  │  ├─ ESP32Stepper.cpp
 │  │  └─ ESP32Stepper.h
-│  ├─ PCA9685/                      # PCA9685用I2C制御ライブラリ(秋月電子製)
-│  │  ├─ examples/
-│  │  │  └─ PCA9685_Sample/
-│  │  │     └─ PCA9685_Sample.ino
-│  │  ├─ PCA9685.cpp
-│  │  ├─ PCA9685.h
-│  │  └─ readme.txt
-│  ├─ PCAMotor/                     # PCA9685用モータ制御ライブラリ
-│  │  ├─ PCAMotor.cpp
-│  │  └─ PCAMotor.h
-│  ├─ PCAServo/                     # PCA9685用サーボモータ制御ライブラリ
-│  │  ├─ PCAServo.cpp
-│  │  └─ PCAServo.h
-│  ├─ UltraSonic_AsyncTask/         # 超音波センサ用ライブラリ
-│  │  ├─ UltraSonic.cpp
-│  │  └─ UltraSonic.h
-│  ├─ UltraSonic_ISRState/          # 超音波センサ用ライブラリ(ボツ)
-│  │  ├─ UltraSonic.cpp
-│  │  └─ UltraSonic.h
 │  ├─ PID/                          # PID制御用ライブラリ
 │  │  ├─ PID.cpp
 │  │  └─ PID.h
@@ -59,86 +38,127 @@ TOGO_remake/
 # クラス図
 ```mermaid
 classDiagram
-
-class PCA9685
-class PCAMotor
-class PCAServo
-class Stepper
-class HCSR04
-class ESP32Encoder
-class PID
-
-class LinearActuator
-class RotaryActuator
-
-class BaseRotate {
-    PCAMotor dcMotor
-    ESP32Encoder encoder
-    PID pid
-}
-
-class BaseExpand {
-    PCAMotor dcMotor
-    HCSR04 ultrasonic
-    PID pid
-}
-
-class BaseLift {
-    PCAMotor dcMotor
-    HCSR04 ultrasonic
-    PID pid
-}
+%% =========================
+%% Component
+%% =========================
 
 class Hand {
-    PCAServo svCatch1
-    PCAServo svCatch2
-    PCAServo svCatch3
-    Stepper stRotate
-    Stepper stExpand
-}
-
-class SortSlide {
-    PCAMotor dcMotor
-    HCSR04 ultrasonic
-    PID pid
+    +PCAServo svLeft
+    +PCAServo svMiddle
+    +PCAServo svRight
+    +Stepper stRotate
+    +Stepper stExpand
 }
 
 class SortGate {
-    PCAServo svLeft
-    PCAServo svRight
+    +PCAServo svLeft
+    +PCAServo svRight
 }
 
-BaseRotate *-- PCAMotor
-BaseRotate *-- ESP32Encoder
-BaseRotate *-- PID
 
-BaseExpand *-- PCAMotor
-BaseExpand *-- HCSR04
-BaseExpand *-- PID
+%% =========================
+%% Mechanism
+%% =========================
 
-BaseLift *-- PCAMotor
-BaseLift *-- HCSR04
-BaseLift *-- PID
+class LinearActuator {
+    -PCAMotor motor
+    -HCSR04Async ultrasonic
+    -PID pid
+    -float targetDistance
+    -float sensor_position_offset
+    -float min_distance_error
+    +begin()
+    +update() bool
+    +setTargetDistance(float)
+    +getTargetDistance() float
+    +getCurrentDistance() float
+}
 
-Hand *-- PCAServo
-Hand *-- Stepper
+class RotaryActuator {
+    -PCAMotor motor
+    -ESP32Encoder encoder
+    -PID pid
+    -float targetAngle
+    -float encoder_gear_ratio
+    -float angle_cash
+    +begin()
+    +update()
+    +setTargetAngle(float)
+    +getCurrentAngle() float
+    +getTargetAngle() float
+}
 
-SortSlide *-- PCAMotor
-SortSlide *-- HCSR04
-SortSlide *-- PID
 
-SortGate *-- PCAServo
+%% =========================
+%% Motor / Sensor
+%% =========================
 
-LinearActuator --> PCAMotor
-LinearActuator --> HCSR04
-LinearActuator --> PID
+class PCAMotor {
+}
 
-RotaryActuator --> PCAMotor
-RotaryActuator --> ESP32Encoder
-RotaryActuator --> PID
+class PCAServo {
+}
 
-BaseRotate --> RotaryActuator
-BaseExpand --> LinearActuator
-BaseLift --> LinearActuator
-SortSlide --> LinearActuator
+class Stepper {
+    -uint8_t pins
+    -float gear_ratio
+}
+
+class HCSR04Async {
+    -float distance
+    +begin()
+    +read()
+    +getDistance() float
+}
+
+class ESP32Encoder {
+    +attachFullQuad()
+    +clearCount()
+    +getCount() int
+}
+
+class PID {
+    -float target
+    +setTarget(float)
+    +reset()
+    +update(float) float
+}
+
+class PCA9685 {
+}
+
+
+%% =========================
+%% Math
+%% =========================
+
+class RadianAbsPi {
+}
+
+
+%% =========================
+%% Relationships
+%% =========================
+
+Hand *-- PCAServo : svLeft
+Hand *-- PCAServo : svMiddle
+Hand *-- PCAServo : svRight
+Hand *-- Stepper : stRotate
+Hand *-- Stepper : stExpand
+
+SortGate *-- PCAServo : svLeft
+SortGate *-- PCAServo : svRight
+
+LinearActuator *-- HCSR04Async : ultrasonic
+LinearActuator *-- PCAMotor : motor
+LinearActuator *-- PID : pid
+
+RotaryActuator *-- PCAMotor : motor
+RotaryActuator *-- PID : pid
+RotaryActuator *-- ESP32Encoder : encoder
+
+PCAServo --> PCA9685
+PCAMotor --> PCA9685
+
+RotaryActuator --> RadianAbsPi
 ```
