@@ -149,13 +149,13 @@ Hand *-- Stepper : stExpand
 SortGate *-- PCAServo : svLeft
 SortGate *-- PCAServo : svRight
 
-LinearActuator *-- PCAMotor : motor
 LinearActuator *-- HCSR04Async : ultrasonic
+LinearActuator *-- PCAMotor : motor
 LinearActuator *-- PID : pid
 
 RotaryActuator *-- PCAMotor : motor
-RotaryActuator *-- ESP32Encoder : encoder
 RotaryActuator *-- PID : pid
+RotaryActuator *-- ESP32Encoder : encoder
 
 PCAServo --> PCA9685
 PCAMotor --> PCA9685
